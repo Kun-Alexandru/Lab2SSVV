@@ -104,6 +104,7 @@ public class AddStudentTest {
         assertThrows(ValidationException.class, () -> this.service.addStudent(student));
     }
 
+    @Test
     void testValidId() {
         final Student student = new Student("1", "Andrei", 933, "a@example.com");
         service.addStudent(student);
