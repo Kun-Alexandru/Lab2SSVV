@@ -14,10 +14,10 @@ public class StudentValidator implements Validator<Student> {
         if(entity.getID().equals("")){
             throw new ValidationException("Id incorect!");
         }
-        if(entity.getID() == null){
+        if(entity.getID().equals("null")){
             throw new ValidationException("Id incorect!");
         }
-        if(entity.getNume() == ""){
+        if(entity.getNume().isEmpty()){
             throw new ValidationException("Nume incorect!");
         }
         if(entity.getGrupa() < 0) {
@@ -26,11 +26,23 @@ public class StudentValidator implements Validator<Student> {
         if(entity.getEmail() == null){
             throw new ValidationException("Email incorect!");
         }
-        if(entity.getNume() == null){
+        if(entity.getNume() == null || !isValidName(entity.getNume())){
             throw new ValidationException("Nume incorect!");
         }
         if(entity.getEmail().equals("")){
             throw new ValidationException("Email incorect!");
         }
+        if (entity.getEmail() == null || !isValidEmail(entity.getEmail()))
+            throw new ValidationException("Invalid email format!");
+    }
+
+    private boolean isValidEmail(String email) {
+        // Simple email format validation, you can implement a more comprehensive validation if needed
+        return email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    private boolean isValidName(String name) {
+        // Name should start with a capital letter and contain no symbols
+        return name.matches("^[A-Z][a-zA-Z ]*$") && !name.contains("-");
     }
 }
