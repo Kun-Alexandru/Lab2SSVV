@@ -51,56 +51,55 @@ public class AddAssignmentTest {
 
     @Test
     public void testValidAssignment() {
-        final Tema tema = new Tema("1", "descriere", 5, 5);
+        final Tema tema = new Tema("1", "d", 10, 10);
         this.service.addTema(tema);
     }
 
     @Test
-    public void testInvalidAssignment() {
-        final Tema tema = new Tema("1", "descriere", 15, 5);
-        assertThrows(ValidationException.class, () -> this.service.addTema(tema));
-    }
-
-    @Test
-    public void testAssignmentEmptyId() {
-        final Tema tema = new Tema("", "descriere", 5, 5);
-        assertThrows(ValidationException.class, () -> this.service.addTema(tema));
-    }
-
-    @Test
-    public void testAssignmentNullId() {
-        final Tema tema = new Tema("null", "descriere", 5, 5);
-        assertThrows(ValidationException.class, () -> this.service.addTema(tema));
-    }
-
-    @Test
-    public void testAssignmentEmptyDescription() {
-        final Tema tema = new Tema("1", "", 5, 5);
-        assertThrows(ValidationException.class, () -> this.service.addTema(tema));
-    }
-
-    @Test
     public void testAssignmentLessDeadline() {
-        final Tema tema = new Tema("1", "descriere", 0, 5);
+        final Tema tema = new Tema("1", "d", -5, 10);
         assertThrows(ValidationException.class, () -> this.service.addTema(tema));
     }
 
     @Test
     public void testAssignmentMoreDeadline() {
-        final Tema tema = new Tema("1", "descriere", 15, 5);
+        final Tema tema = new Tema("1", "d", 25, 10);
         assertThrows(ValidationException.class, () -> this.service.addTema(tema));
     }
 
     @Test
     public void testAssignmentLessSubmittedAt() {
-        final Tema tema = new Tema("1", "descriere", 5, 0);
+        final Tema tema = new Tema("1", "d", 10, -5);
         assertThrows(ValidationException.class, () -> this.service.addTema(tema));
     }
 
     @Test
     public void testAssignmentMoreSubmittedAt() {
-        final Tema tema = new Tema("1", "descriere", 5, 15);
+        final Tema tema = new Tema("1", "d", 10, 25);
         assertThrows(ValidationException.class, () -> this.service.addTema(tema));
     }
 
+    @Test
+    public void testInvalidAssignment() {
+        final Tema tema = new Tema("1", "d", 25, 10);
+        assertThrows(ValidationException.class, () -> this.service.addTema(tema));
+    }
+
+    @Test
+    public void testAssignmentEmptyId() {
+        final Tema tema = new Tema("", "d", 10, 10);
+        assertThrows(ValidationException.class, () -> this.service.addTema(tema));
+    }
+
+    @Test
+    public void testAssignmentNullId() {
+        final Tema tema = new Tema("null", "d", 10, 10);
+        assertThrows(ValidationException.class, () -> this.service.addTema(tema));
+    }
+
+    @Test
+    public void testAssignmentEmptyDescription() {
+        final Tema tema = new Tema("1", "", 10, 10);
+        assertThrows(ValidationException.class, () -> this.service.addTema(tema));
+    }
 }
