@@ -124,4 +124,23 @@ public class IntegrationTest extends TestCase {
         service.addTema(tema);
         service.addNota(nota, "f");
     }
+
+    @Test
+    public void testStudent() {
+        final Student student = new Student("1", "Edi", 9344, "edi@example.com");
+        service.addStudent(student);
+    }
+
+    @Test
+    public void testAssignment() {
+        final Tema tema = new Tema("1", "desc", 5, 4);
+        service.addTema(tema);
+    }
+
+    @Test
+    public void testGrade() {
+
+        final Nota nota = new Nota("1", "1", "1", 10, Curent.getStartDate().plusDays(14));
+        service.addNota(nota, "nice");
+    }
 }
